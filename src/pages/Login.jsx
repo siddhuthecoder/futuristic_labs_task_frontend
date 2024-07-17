@@ -49,46 +49,62 @@ const Login = () => {
   };
 
   return (
-    <>
-      <div className="log_div">
-        <form className="form_box" onSubmit={handleSubmit}>
-          <h2 align="center">Login</h2>
-          <div className="form_input">
-            <label htmlFor="username">Username</label>
-            <input
-              type="text"
-              id="username"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
-            />
-          </div>
-          <div className="form_input">
-            <label htmlFor="password">Password</label>
-            <input
-              type="password"
-              id="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-            />
-          </div>
-          <p>
-            Dont have an account?{" "}
-            <Link to="/register" style={{ color: "#3265aa" }}>
-              Register here
-            </Link>
-          </p>
-          <div className="center_btn">
-            {!submit ? (
-              <button type="submit">Login</button>
-            ) : (
-              <button type="submit" disabled>
-                Logging in...
-              </button>
-            )}
-          </div>
-        </form>
-      </div>
-    </>
+    <div className="min-h-screen flex items-center justify-center bg-gray-900 text-white">
+      <form
+        className="bg-gray-800 p-8 rounded-lg shadow-md w-full max-w-md"
+        onSubmit={handleSubmit}
+      >
+        <h2 className="text-2xl text-green-500 logo font-bold text-center mb-6">Login</h2>
+        <div className="mb-4">
+          <label htmlFor="username" className="block text-sm font-medium">
+            Username
+          </label>
+          <input
+            type="text"
+            id="username"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+            className="mt-1 p-2 w-full bg-gray-700 rounded border border-gray-600 focus:ring-green-500 focus:border-green-500"
+          />
+        </div>
+        <div className="mb-4">
+          <label htmlFor="password" className="block text-sm font-medium">
+            Password
+          </label>
+          <input
+            type="password"
+            id="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            className="mt-1 p-2 w-full bg-gray-700 rounded border border-gray-600 focus:ring-green-500 focus:border-green-500"
+          />
+        </div>
+        <p className="text-sm mb-6">
+          Don't have an account?{" "}
+          <Link to="/register" className="text-green-500">
+            Register here
+          </Link>
+        </p>
+        <div className="text-center">
+          {!submit ? (
+            <button
+              type="submit"
+              className="bg-green-500 hover:bg-green-600 text-white py-2 px-4 rounded focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-opacity-50"
+            >
+              Login
+            </button>
+          ) : (
+            <button
+              type="submit"
+              disabled
+              className="bg-green-500 text-white py-2 px-4 rounded opacity-50 cursor-not-allowed"
+            >
+              Logging in...
+            </button>
+          )}
+        </div>
+      </form>
+    </div>
   );
 };
 
