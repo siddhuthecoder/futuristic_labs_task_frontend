@@ -18,11 +18,11 @@ const Home = () => {
   const userData = useSelector((state) => state.user.user);
   const navigate = useNavigate();
 
-  useEffect(() => {
-    if (!userData) {
-      navigate("/register");
-    }
-  }, [userData, navigate]);
+  // useEffect(() => {
+  //   if (!userData) {
+  //     navigate("/register");
+  //   }
+  // }, [userData, navigate]);
 
   return (
     <DndProvider backend={HTML5Backend}>

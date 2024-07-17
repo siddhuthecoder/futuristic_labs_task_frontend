@@ -16,6 +16,17 @@ import GridComponent from './GridComponent';
 import SocialMediaComponent from './SocialMediaComponent';
 import SEOSettings from './SEOSettings';  
 import './styles.css';
+import { FaLaptopCode } from "react-icons/fa6";
+import { FaTabletAlt } from "react-icons/fa";
+import { FaMobileScreenButton } from "react-icons/fa6";
+import { FaSave } from "react-icons/fa";
+import CustomFileInput from './InputFile';
+import { CiSaveDown2 } from "react-icons/ci";
+import { CiSaveUp2 } from 'react-icons/ci';
+
+
+
+
 
 const DeviceFrame = styled.div`
   display: flex;
@@ -25,21 +36,25 @@ const DeviceFrame = styled.div`
   border: 10px solid ${(props) => (props.device === 'laptop' ? '#4A90E2' : props.device === 'tablet' ? '#E94E77' : '#F5A623')};
   border-radius: ${(props) => (props.device === 'laptop' ? '10px' : '5px')};
   width: ${(props) => (props.device === 'laptop' ? '1200px' : props.device === 'tablet' ? '800px' : '400px')};
-  height: ${(props) => (props.device === 'laptop' ? '800px' : props.device === 'tablet' ? '600px' : '800px')};
-  background: #fff;
+  background: black;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
   margin: 0 auto;
+  height:calc(100vh-70px);
+  overflow-y:scroll;
 `;
+//  height: ${(props) => (props.device === 'laptop' ? '800px' : props.device === 'tablet' ? '600px' : '800px')};
 
 const CanvasContainer = styled.div`
   flex: 1;
-  padding: 20px;
   background: #fafafa;
-  height: 100%; /* Ensure the canvas takes full height */
+  height: 100vh; /* Ensure the canvas takes full height */
+  overflow-y:scroll;
+  background-color:black;
+  color:white;
 `;
 
 const DeviceSelector = styled.div`
-  margin-bottom: 20px;
+  margin:20px 0px;
 `;
 
 const Canvas = ({ components, setComponents }) => {
@@ -131,14 +146,32 @@ const Canvas = ({ components, setComponents }) => {
   return (
     <DeviceFrame device={device}>
       <CanvasContainer ref={drop}>
-        <DeviceSelector>
-          <button onClick={() => setDevice('laptop')}>Laptop</button>
-          <button onClick={() => setDevice('tablet')}>Tablet</button>
-          <button onClick={() => setDevice('mobile')}>Mobile</button>
+        <div className="flex items-center mt-3 flex-row-reverse">
+          <button className="px-3 py-1 bg-green-500 font-bold flex items-center mx-2 text-black" onClick={saveComponents}>
+            <CiSaveDown2 />
+            <span className={`${device == "mobile"?"hidden":"block"}`}>Save Design</span>
+          </button>
+          <button className="px-3 py-1 bg-green-500 font-bold mx-2 text-black" onClick={exportComponents}>
+            <CiSaveUp2 />
+            <span className={`${device == "mobile"?"hidden":"block"}`}>Export Design</span>
+          </button>
+          <CustomFileInput className="px-3 py-1" onFileChange={importComponents} />
+        </div>
+        <DeviceSelector className="flex items-center justify-center gap-2" >
+          <button className="flex items-center bg-green-500 gap-1 text-black font-bold hover:text-white px-3 py-1" onClick={() => setDevice('laptop')}>
+            <FaLaptopCode />
+            <span className={`${device == "mobile"?"hidden":"block"}`}>Laptop</span>
+          </button>
+          <button className="flex items-center gap-1 bg-green-500 text-black font-bold hover:text-white px-3 py-1" onClick={() => setDevice('tablet')}>
+            <FaTabletAlt />
+            <span className={`${device == "mobile"?"hidden":"block"}`}>Tab</span>
+          </button>
+          <button className="flex items-center gap-1 bg-green-500 text-black font-bold hover:text-white px-3 py-1" onClick={() => setDevice('mobile')}>
+            <FaMobileScreenButton />
+            <span className={`${device == "mobile"?"hidden":"block"}`}>Mobile</span>
+          </button>
         </DeviceSelector>
-        <button onClick={saveComponents}>Save Design</button>
-        <button onClick={exportComponents}>Export Design</button>
-        <input type="file" accept=".json" onChange={importComponents} style={{ marginLeft: '10px' }} />
+        
         <SEOSettings seoData={seoData} setSeoData={setSeoData} />
         {components.map((component, index) => {
           switch (component.type) {

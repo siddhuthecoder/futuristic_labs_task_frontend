@@ -1,4 +1,8 @@
 /* styles.css */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 
 body {
     font-family: Arial, sans-serif;
@@ -12,12 +16,16 @@ body {
   
   /* Text Component */
   .text-component {
-    border: 1px solid #ccc;
     padding: 10px;
     margin-bottom: 10px;
-    background-color: #f9f9f9;
+    background-color: black;
   }
   
+  .logo{
+    font-family: "Playwrite BE WAL", cursive;
+    font-optical-sizing: auto;
+    font-style: normal;
+  }
   /* Image Component */
   .image-component {
     border: 1px solid #ccc;
@@ -155,7 +163,10 @@ body {
   body {
     margin: 0;
     font-family: 'Arial', sans-serif;
-    background-color: #f4f4f4;
+    background-color: #090808;
+  }
+  ::placeholder{
+    color:black;
   }
   
   h1, h2 {
@@ -224,3 +235,24 @@ body {
     margin-top: 0;
   }
   
+
+  /* For webkit browsers like Chrome and Safari */
+::-webkit-scrollbar {
+  width: 0px; /* adjust this value to change the width */
+}
+
+/* Optional: Customize scrollbar track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+/* Optional: Customize scrollbar thumb */
+::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 4px;
+}
+
+/* Optional: Customize scrollbar thumb on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}

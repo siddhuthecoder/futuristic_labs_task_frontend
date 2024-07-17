@@ -28,55 +28,64 @@ const FormComponent = () => {
       message: '',
       subscribe: false,
     });
-    alert("Form submitted Sucessfuly")
   };
 
   return (
-    <div style={{ border: '1px solid #ddd', padding: '10px' }}>
-      <form onSubmit={handleSubmit}>
-        <label>
-          Name:
+    <div className="border border-gray-700 bg-gray-900 rounded-lg p-4">
+      <form onSubmit={handleSubmit} className="space-y-4">
+        <label className="block text-white">
+          <span className="text-green-500">Name:</span>
           <input
             type="text"
             name="name"
             value={formData.name}
             onChange={handleChange}
+            className="block w-full bg-gray-800 text-white px-3 py-2 rounded-md focus:outline-none focus:bg-gray-700"
             required
           />
         </label>
-        <br />
-        <label>
-          Email:
+        
+        <label className="block text-white">
+          <span className="text-green-500">Email:</span>
           <input
             type="email"
             name="email"
             value={formData.email}
             onChange={handleChange}
+            className="block w-full bg-gray-800 text-white px-3 py-2 rounded-md focus:outline-none focus:bg-gray-700"
             required
           />
         </label>
-        <br />
-        <label>
-          Message:
+
+        <label className="block text-white">
+          <span className="text-green-500">Message:</span>
           <textarea
             name="message"
             value={formData.message}
             onChange={handleChange}
+            className="block w-full bg-gray-800 text-white px-3 py-2 rounded-md focus:outline-none focus:bg-gray-700"
+            rows="4"
             required
           />
         </label>
-        <br />
-        <label>
+
+        <label className="flex items-center text-white">
           <input
             type="checkbox"
             name="subscribe"
             checked={formData.subscribe}
             onChange={handleChange}
+            className="mr-2 text-green-500 focus:ring-green-500"
           />
-          Subscribe to newsletter
+          <span>Subscribe to newsletter</span>
         </label>
-        <br />
-        <button type="submit">Submit</button>
+
+        <button
+          type="submit"
+          className="bg-green-500 hover:bg-green-600 text-white py-2 px-4 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
+        >
+          Submit
+        </button>
       </form>
     </div>
   );
