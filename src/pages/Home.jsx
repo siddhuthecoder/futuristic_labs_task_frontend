@@ -23,9 +23,7 @@ const Home = () => {
   //     navigate("/login");
   //   }
   // }, [userData, navigate]);
-  const handleToggle = (data) => {
-    setShow(!data)
-  }
+
   useEffect(() => {
     if (!userData) {
       navigate("/register");
@@ -38,7 +36,6 @@ const Home = () => {
         <div className="w-[250px] h-screen overflow-y-scroll relative flex">
           <Sidebar />
         </div>
-        <Sidebar />
         <Canvas components={components} setComponents={setComponents} />
       </AppContainer>
     </DndProvider>
