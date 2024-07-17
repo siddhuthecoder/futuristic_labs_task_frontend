@@ -157,9 +157,9 @@ const Canvas = ({ components, setComponents }) => {
             <CiSaveDown2 />
             <span className={`${device == "mobile"?"hidden":"block"}`}>Save Design</span>
           </button>
-          <button className="px-3 py-1 bg-green-500 font-bold mx-2 text-black" onClick={exportComponents}>
+          <button className="px-3 flex items-center py-1 bg-green-500 font-bold mx-2 text-black" onClick={exportComponents}>
             <CiSaveUp2 />
-            <span className={`${device == "mobile"?"hidden":"block"}`}>Export Design</span>
+            <span className={`${device == "mobile"?"hidden":"inline-block"}`}>Export Design</span>
           </button>
           <CustomFileInput className="px-3 py-1" onFileChange={importComponents} />
         </div>

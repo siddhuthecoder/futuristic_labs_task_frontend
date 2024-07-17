@@ -4,11 +4,14 @@ import { HTML5Backend } from "react-dnd-html5-backend";
 import Sidebar from "../components/Sidebar";
 import Canvas from "../components/Canvas";
 import styled from "styled-components";
+import { PiSquaresFourDuotone } from "react-icons/pi";
+import { GiHamburgerMenu } from "react-icons/gi";
+
 
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
-const AppContainer = styled.div`
+const AppContainer = styled.div` 
   display: flex;
   height: 100vh;
 `;
@@ -17,6 +20,7 @@ const Home = () => {
   const [components, setComponents] = useState([]);
   const userData = useSelector((state) => state.user.user);
   const navigate = useNavigate();
+  const [shadows,setShow] = useState(true)
 
   // useEffect(() => {
   //   if (!userData) {
@@ -27,7 +31,12 @@ const Home = () => {
   return (
     <DndProvider backend={HTML5Backend}>
       <AppContainer>
-        <Sidebar />
+        <div className="w-[250px] h-screen overflow-y-scroll">
+          <div className="w-full flex items-center flex-row-reverse">
+            <GiHamburgerMenu className="text-3xl" />
+          </div>
+          <Sidebar />
+        </div>
         <Canvas components={components} setComponents={setComponents} />
       </AppContainer>
     </DndProvider>
