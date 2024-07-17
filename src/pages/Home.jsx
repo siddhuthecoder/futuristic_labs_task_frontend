@@ -24,7 +24,7 @@ const Home = () => {
 
   // useEffect(() => {
   //   if (!userData) {
-  //     navigate("/register");
+  //     navigate("/login");
   //   }
   // }, [userData, navigate]);
 
@@ -32,8 +32,8 @@ const Home = () => {
     <DndProvider backend={HTML5Backend}>
       <AppContainer>
         <div className="w-[250px] h-screen overflow-y-scroll">
-          <div className="w-full flex items-center flex-row-reverse">
-            <GiHamburgerMenu className="text-3xl" />
+          <div className="w-full flex relative items-center flex-row-reverse">
+            
           </div>
           <Sidebar />
         </div>

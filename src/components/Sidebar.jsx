@@ -13,6 +13,7 @@ const SidebarContainer = styled.div`
   width: 250px;
   color:white;
   position:fixed;
+  top:0;
   border-right: 1px solid #ccc;
   height:100vh;
   display:flex;
@@ -39,7 +40,7 @@ const Sidebar = ({isShow}) => (
   
   <SidebarContainer className="backdrop-blur-lg">
     <div className="w-full flex items-center flex-row-reverse">
-      <AiOutlineClose className="text-4xl text-red-500 me-[]" />
+      {/* <AiOutlineClose className="text-4xl text-red-500 me-[]" /> */}
     </div>
     <div className="flex items-center  text-2xl my-2 logo mb-[50px] gap-1 ps-2" style={{
       fontFamily:""

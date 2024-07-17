@@ -4,6 +4,11 @@ import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { UserActions } from "../store/userSlice";
 import { Link, useNavigate } from "react-router-dom";
+import { FcGoogle } from "react-icons/fc";
+import { FaRegUser } from "react-icons/fa";
+import { MdOutlineEmail } from "react-icons/md";
+import { RiLockPasswordLine } from "react-icons/ri";
+import { FaShare, FaXTwitter } from "react-icons/fa6";
 
 const Login = () => {
   const [username, setUsername] = useState("");
@@ -22,6 +27,7 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    console.log(username+password)
     setSubmit(true);
     if (username === "" || password === "") {
       toast.error("All Fields are required");
@@ -51,41 +57,81 @@ const Login = () => {
   return (
     <>
       <div className="log_div">
-        <form className="form_box" onSubmit={handleSubmit}>
-          <h2 align="center">Login</h2>
-          <div className="form_input">
-            <label htmlFor="username">Username</label>
+      <form
+          action=""
+          className="w-[97%] max-w-[450px] mx-auto flex flex-col shadow rounded-[5px] bg-gray-800"
+        >
+          <div className="text-center font-bold text-2xl my-5 text-violet-400">
+            Sign In
+          </div>
+
+         
+          {/* <div className="hidden items-center relative mt-2">
             <input
               type="text"
-              id="username"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
+              className="bg-gray-700 w-[95%] mx-auto ps-[40px] h-[40px] rounded-md text-white placeholder-gray-400"
+              placeholder="Your Name"
+              name="username"
             />
+            <FaRegUser className="absolute left-[20px] z-[1] text-gray-400" />
+          </div> */}
+          
+          {/* <div className="flex items-center relative mt-2">
+            <input
+              type="text"
+              className="bg-gray-700 w-[95%] mx-auto ps-[40px] h-[40px] rounded-md text-white placeholder-gray-400"
+              placeholder="Your Name"
+              name="username"
+            />
+            <FaRegUser className="absolute left-[20px] z-[1] text-gray-400" />
+          </div> */}
+          <div className="flex items-center relative mt-2">
+            <input
+              type="text"
+              className="bg-gray-700 w-[95%] mx-auto ps-[40px] h-[40px] rounded-md text-white placeholder-gray-400"
+              placeholder="Your Name"
+
+
+            />
+            <FaRegUser className="absolute left-[20px] z-[1] text-gray-400" />
           </div>
-          <div className="form_input">
-            <label htmlFor="password">Password</label>
+          <div className="flex items-center relative mt-2">
             <input
               type="password"
-              id="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              className="bg-gray-700 w-[95%] mx-auto ps-[40px] h-[40px] rounded-md text-white placeholder-gray-400"
+              placeholder="Your Password"
             />
+            <RiLockPasswordLine className="absolute left-[20px] z-[1] text-gray-400" />
           </div>
-          <p>
-            Dont have an account?{" "}
-            <Link to="/register" style={{ color: "#3265aa" }}>
-              Register here
+          <div className="flex my-4 w-[95%] mx-auto">
+            <input type="checkbox" className="" placeholder="Your Password" />
+            <p className="text-left ps-2 text-sm">
+              <span className="text-white">Terms and Services</span> and{" "}
+              <span className="text-white">Privacy Policy</span>
+            </p>
+          </div>
+          <button className="w-[95%] mx-auto mb-4 bg-violet-600 text-white py-2 mt-2 rounded-[5px] hover:bg-violet-700">
+            Login
+          </button>
+          <p className="text-center">
+            <span className="text-gray-400">Already Registered? </span>
+            <Link to="/signin" className="hover:underline text-violet-400 ">
+              Sign In
             </Link>
           </p>
-          <div className="center_btn">
-            {!submit ? (
-              <button type="submit">Login</button>
-            ) : (
-              <button type="submit" disabled>
-                Logging in...
-              </button>
-            )}
+          <div className="flex w-full items-center justify-between h-[50px]">
+            <div className="w-[35%] h-[1px] bg-gray-600 mx-auto"></div>
+            <div className="mx-auto pb-1">or</div>
+            <div className="w-[35%] h-[1px] bg-gray-600 mx-auto"></div>
           </div>
+          <button className="flex justify-center items-center text-center text-white p-2 w-[95%] mx-auto rounded-md bg-gray-700 border-[1px] border-gray-600 hover:bg-gray-600">
+            <FcGoogle />
+            <span className="ml-4">Sign Up With Google</span>
+          </button>
+          <button className="mb-5 flex justify-center items-center text-center mt-2 text-white p-2 w-[95%] mx-auto rounded-md bg-gray-700 border-[1px] border-gray-600 hover:bg-gray-600">
+            <FaXTwitter />
+            <span className="ml-4">Sign Up With Twitter</span>
+          </button>
         </form>
       </div>
     </>

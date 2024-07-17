@@ -56,42 +56,7 @@ const Signup = () => {
   return (
     <>
       <div className="log_div">
-        {/* <form className="form_box" onSubmit={handleSubmit}>
-          <h2 align="center">Register</h2>
-          <div className="form_input">
-            <label htmlFor="username">Username</label>
-            <input
-              type="text"
-              id="username"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
-            />
-          </div>
-          <div className="form_input">
-            <label htmlFor="password">Password</label>
-            <input
-              type="password"
-              id="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-            />
-          </div>
-          <p>
-            Already have an account?{" "}
-            <Link to="/login" style={{ color: "#3265aa" }}>
-              Login here
-            </Link>{" "}
-          </p>
-          <div className="center_btn">
-            {!submit ? (
-              <button type="submit">Register</button>
-            ) : (
-              <button type="submit" disabled>
-                Registering...
-              </button>
-            )}
-          </div>
-        </form> */}
+       
         <form
           action=""
           className="w-[97%] max-w-[450px] mx-auto flex flex-col shadow rounded-[5px] bg-gray-800"
