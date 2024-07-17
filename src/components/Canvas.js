@@ -14,14 +14,32 @@ import VideoComponent from './VideoComponent';
 import FormComponent from './FormComponent';
 import GridComponent from './GridComponent';
 import SocialMediaComponent from './SocialMediaComponent';
-import SEOSettings from './SEOSettings';  // Importing the SEO component
+import SEOSettings from './SEOSettings';  
 import './styles.css';
+
+const DeviceFrame = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  border: 10px solid ${(props) => (props.device === 'laptop' ? '#4A90E2' : props.device === 'tablet' ? '#E94E77' : '#F5A623')};
+  border-radius: ${(props) => (props.device === 'laptop' ? '10px' : '5px')};
+  width: ${(props) => (props.device === 'laptop' ? '1200px' : props.device === 'tablet' ? '800px' : '400px')};
+  height: ${(props) => (props.device === 'laptop' ? '800px' : props.device === 'tablet' ? '600px' : '800px')};
+  background: #fff;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  margin: 0 auto;
+`;
 
 const CanvasContainer = styled.div`
   flex: 1;
   padding: 20px;
   background: #fafafa;
-  min-height: 100vh;
+  height: 100%; /* Ensure the canvas takes full height */
+`;
+
+const DeviceSelector = styled.div`
+  margin-bottom: 20px;
 `;
 
 const Canvas = ({ components, setComponents }) => {
@@ -30,6 +48,7 @@ const Canvas = ({ components, setComponents }) => {
     description: '',
     keywords: '',
   });
+  const [device, setDevice] = useState('laptop'); // State for selected device
 
   const [, drop] = useDrop(() => ({
     accept: 'COMPONENT',
@@ -54,7 +73,6 @@ const Canvas = ({ components, setComponents }) => {
   };
 
   useEffect(() => {
-    // Fetch components from the server using the ID stored in local storage
     const designId = localStorage.getItem('designId');
     if (designId) {
       axios.get(`http://localhost:5001/design/${designId}`)
@@ -68,16 +86,15 @@ const Canvas = ({ components, setComponents }) => {
     }
   }, [setComponents]);
 
-  // Save components to the server
   const saveComponents = () => {
     axios.post('http://localhost:5001/design/new', {
       title: seoData.title,
-      desc: seoData.description,
-      keywords: seoData.keywords.split(','),
+      description: seoData.description,
+      keywords: seoData.keywords.split(',').map(keyword => keyword.trim()),
       components: components
     })
     .then((response) => {
-      const designId = response.data.design._id; // Accessing the design ID
+      const designId = response.data.design._id;
       localStorage.setItem('designId', designId);
       alert('Design saved!');
     })
@@ -86,7 +103,6 @@ const Canvas = ({ components, setComponents }) => {
     });
   };
 
-  // Export components as JSON
   const exportComponents = () => {
     const json = JSON.stringify(components);
     const blob = new Blob([json], { type: 'application/json' });
@@ -99,7 +115,6 @@ const Canvas = ({ components, setComponents }) => {
     document.body.removeChild(a);
   };
 
-  // Import components from JSON
   const importComponents = (event) => {
     const file = event.target.files[0];
     if (file) {
@@ -114,41 +129,47 @@ const Canvas = ({ components, setComponents }) => {
   };
 
   return (
-    <CanvasContainer ref={drop}>
-      <button onClick={saveComponents}>Save Design</button>
-      <button onClick={exportComponents}>Export Design</button>
-      <input type="file" accept=".json" onChange={importComponents} style={{ marginLeft: '10px' }} />
-      {/* SEO Settings Component */}
-      <SEOSettings seoData={seoData} setSeoData={setSeoData} />
-      {components.map((component, index) => {
-        switch (component.type) {
-          case 'text':
-            return <DraggableComponent key={component.id} index={index} component={<TextComponent />} moveComponent={moveComponent} />;
-          case 'image':
-            return <DraggableComponent key={component.id} index={index} component={<ImageComponent />} moveComponent={moveComponent} />;
-          case 'button':
-            return <DraggableComponent key={component.id} index={index} component={<ButtonComponent text="Button" link="#" />} moveComponent={moveComponent} />;
-          case 'header':
-            return <DraggableComponent key={component.id} index={index} component={<HeaderComponent text="Header" link="#" />} moveComponent={moveComponent} />;
-          case 'footer':
-            return <DraggableComponent key={component.id} index={index} component={<FooterComponent text="Footer" link="#" />} moveComponent={moveComponent} />;
-          case 'carousel':
-            return <DraggableComponent key={component.id} index={index} component={<CarouselComponent images={["image1.jpg", "image2.jpg"]} />} moveComponent={moveComponent} />;
-          case 'card':
-            return <DraggableComponent key={component.id} index={index} component={<CardComponent title="Card Title" content="Card content here." image="image.jpg" />} moveComponent={moveComponent} />;
-          case 'video':
-            return <DraggableComponent key={component.id} index={index} component={<VideoComponent videoUrl="https://www.youtube.com/embed/videoID" />} moveComponent={moveComponent} />;
-          case 'form':
-            return <DraggableComponent key={component.id} index={index} component={<FormComponent />} moveComponent={moveComponent} />;
-          case 'grid':
-            return <DraggableComponent key={component.id} index={index} component={<GridComponent items={["Item 1", "Item 2", "Item 3"]} />} moveComponent={moveComponent} />;
-          case 'social':
-            return <DraggableComponent key={component.id} index={index} component={<SocialMediaComponent />} moveComponent={moveComponent} />;
-          default:
-            return null;
-        }
-      })}
-    </CanvasContainer>
+    <DeviceFrame device={device}>
+      <CanvasContainer ref={drop}>
+        <DeviceSelector>
+          <button onClick={() => setDevice('laptop')}>Laptop</button>
+          <button onClick={() => setDevice('tablet')}>Tablet</button>
+          <button onClick={() => setDevice('mobile')}>Mobile</button>
+        </DeviceSelector>
+        <button onClick={saveComponents}>Save Design</button>
+        <button onClick={exportComponents}>Export Design</button>
+        <input type="file" accept=".json" onChange={importComponents} style={{ marginLeft: '10px' }} />
+        <SEOSettings seoData={seoData} setSeoData={setSeoData} />
+        {components.map((component, index) => {
+          switch (component.type) {
+            case 'text':
+              return <DraggableComponent key={component.id} index={index} component={<TextComponent />} moveComponent={moveComponent} />;
+            case 'image':
+              return <DraggableComponent key={component.id} index={index} component={<ImageComponent />} moveComponent={moveComponent} />;
+            case 'button':
+              return <DraggableComponent key={component.id} index={index} component={<ButtonComponent text="Button" link="#" />} moveComponent={moveComponent} />;
+            case 'header':
+              return <DraggableComponent key={component.id} index={index} component={<HeaderComponent text="Header" link="#" />} moveComponent={moveComponent} />;
+            case 'footer':
+              return <DraggableComponent key={component.id} index={index} component={<FooterComponent text="Footer" link="#" />} moveComponent={moveComponent} />;
+            case 'carousel':
+              return <DraggableComponent key={component.id} index={index} component={<CarouselComponent images={["image1.jpg", "image2.jpg"]} />} moveComponent={moveComponent} />;
+            case 'card':
+              return <DraggableComponent key={component.id} index={index} component={<CardComponent title="Card Title" content="Card content here." image="image.jpg" />} moveComponent={moveComponent} />;
+            case 'video':
+              return <DraggableComponent key={component.id} index={index} component={<VideoComponent videoUrl="https://www.youtube.com/embed/videoID" />} moveComponent={moveComponent} />;
+            case 'form':
+              return <DraggableComponent key={component.id} index={index} component={<FormComponent />} moveComponent={moveComponent} />;
+            case 'grid':
+              return <DraggableComponent key={component.id} index={index} component={<GridComponent items={["Item 1", "Item 2", "Item 3"]} />} moveComponent={moveComponent} />;
+            case 'social':
+              return <DraggableComponent key={component.id} index={index} component={<SocialMediaComponent />} moveComponent={moveComponent} />;
+            default:
+              return null;
+          }
+        })}
+      </CanvasContainer>
+    </DeviceFrame>
   );
 };
 
