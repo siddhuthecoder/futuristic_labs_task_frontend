@@ -14,7 +14,7 @@ import VideoComponent from './VideoComponent';
 import FormComponent from './FormComponent';
 import GridComponent from './GridComponent';
 import SocialMediaComponent from './SocialMediaComponent';
-import SEOSettings from './SEOSettings';  
+import SEOSettings from './SEOSettings';
 import './styles.css';
 
 const DeviceFrame = styled.div`
@@ -75,10 +75,16 @@ const Canvas = ({ components, setComponents }) => {
   useEffect(() => {
     const designId = localStorage.getItem('designId');
     if (designId) {
-      axios.get(`http://localhost:5001/design/${designId}`)
+      axios.get(`https://futuristic-labs-task-backendd.onrender.com/design/${designId}`)
         .then((response) => {
           const fetchedComponents = response.data.design.components || [];
+          const fetchedSeoData = {
+            title: response.data.design.title || '',
+            description: response.data.design.desc || '',
+            keywords: response.data.design.keywords ? response.data.design.keywords.join(', ') : '',
+          };
           setComponents(fetchedComponents);
+          setSeoData(fetchedSeoData);
         })
         .catch((error) => {
           console.error('Error fetching components:', error);
@@ -87,7 +93,7 @@ const Canvas = ({ components, setComponents }) => {
   }, [setComponents]);
 
   const saveComponents = () => {
-    axios.post('http://localhost:5001/design/new', {
+    axios.post('https://futuristic-labs-task-backendd.onrender.com/design/new', {
       title: seoData.title,
       description: seoData.description,
       keywords: seoData.keywords.split(',').map(keyword => keyword.trim()),
