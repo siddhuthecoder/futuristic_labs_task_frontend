@@ -22,11 +22,11 @@ const Home = () => {
   const navigate = useNavigate();
   const [shadows,setShow] = useState(true)
 
-  // useEffect(() => {
-  //   if (!userData) {
-  //     navigate("/register");
-  //   }
-  // }, [userData, navigate]);
+  useEffect(() => {
+    if (!userData) {
+      navigate("/register");
+    }
+  }, [userData, navigate]);
 
   return (
     <DndProvider backend={HTML5Backend}>
