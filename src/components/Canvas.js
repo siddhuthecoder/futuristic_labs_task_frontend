@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { useDrop } from 'react-dnd';
 import update from 'immutability-helper';
+import axios from 'axios';
 import DraggableComponent from './DraggableComponent';
 import TextComponent from './TextComponent';
 import ImageComponent from './ImageComponent';
@@ -52,18 +53,37 @@ const Canvas = ({ components, setComponents }) => {
     );
   };
 
-  // Load components from local storage
   useEffect(() => {
-    const savedComponents = localStorage.getItem('savedComponents');
-    if (savedComponents) {
-      setComponents(JSON.parse(savedComponents));
+    // Fetch components from the server using the ID stored in local storage
+    const designId = localStorage.getItem('designId');
+    if (designId) {
+      axios.get(`http://localhost:5001/design/${designId}`)
+        .then((response) => {
+          const fetchedComponents = response.data.design.components || [];
+          setComponents(fetchedComponents);
+        })
+        .catch((error) => {
+          console.error('Error fetching components:', error);
+        });
     }
   }, [setComponents]);
 
-  // Save components to local storage
+  // Save components to the server
   const saveComponents = () => {
-    localStorage.setItem('savedComponents', JSON.stringify(components));
-    alert('Design saved!');
+    axios.post('http://localhost:5001/design/new', {
+      title: seoData.title,
+      desc: seoData.description,
+      keywords: seoData.keywords.split(','),
+      components: components
+    })
+    .then((response) => {
+      const designId = response.data.design._id; // Accessing the design ID
+      localStorage.setItem('designId', designId);
+      alert('Design saved!');
+    })
+    .catch((error) => {
+      console.error('Error saving design:', error);
+    });
   };
 
   // Export components as JSON
