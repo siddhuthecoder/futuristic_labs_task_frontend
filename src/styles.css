@@ -1,0 +1,30 @@
+.app-container {
+    display: flex;
+  }
+  
+  .sidebar {
+    width: 20%;
+    background-color: #f4f4f4;
+    padding: 10px;
+  }
+  
+  .editor {
+    width: 60%;
+    border: 1px solid #ccc;
+    padding: 10px;
+    min-height: 80vh;
+  }
+  
+  .property-editor {
+    width: 20%;
+    background-color: #f4f4f4;
+    padding: 10px;
+  }
+  
+  /* TextComponent.css */
+.text-component {
+  border: 1px solid #ccc;
+  padding: 10px;
+  margin-bottom: 10px;
+  background-color: #f9f9f9;
+}

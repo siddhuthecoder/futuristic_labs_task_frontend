@@ -1,0 +1,155 @@
+/* styles.css */
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+  }
+  
+  h2 {
+    margin: 0;
+  }
+  
+  /* Text Component */
+  .text-component {
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin-bottom: 10px;
+    background-color: #f9f9f9;
+  }
+  
+  /* Image Component */
+  .image-component {
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin-bottom: 10px;
+    background-color: #f9f9f9;
+  }
+  
+  .image-component img {
+    max-width: 100%;
+    height: auto;
+  }
+  
+  /* Button Component */
+  .button-component {
+    display: inline-block;
+    padding: 10px 15px;
+    background-color: #007bff;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+  }
+  
+  .button-component:hover {
+    background-color: #0056b3;
+  }
+  
+  /* Header & Footer Component */
+  .header-component,
+  .footer-component {
+    padding: 15px;
+    background-color: #f1f1f1;
+    text-align: center;
+    border: 1px solid #ddd;
+    margin-bottom: 10px;
+  }
+  
+  .header-component a,
+  .footer-component a {
+    text-decoration: none;
+    color: #007bff;
+  }
+  
+  /* Carousel Component */
+  .carousel-component img {
+    width: 100%;
+    height: auto;
+  }
+  
+  /* Card Component */
+  .card-component {
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 15px;
+    background-color: #fff;
+    margin-bottom: 10px;
+  }
+  
+  .card-component img {
+    max-width: 100%;
+    border-radius: 5px;
+  }
+  
+  /* Video Component */
+  .video-component {
+    margin-bottom: 10px;
+  }
+  
+  .video-component iframe {
+    width: 100%;
+    height: 200px;
+    border: none;
+  }
+  
+  /* Form Component */
+  .form-component {
+    border: 1px solid #ddd;
+    padding: 15px;
+    background-color: #f9f9f9;
+    margin-bottom: 10px;
+  }
+  
+  .form-component input,
+  .form-component textarea {
+    width: calc(100% - 20px);
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  .form-component button {
+    padding: 10px 15px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .form-component button:hover {
+    background-color: #0056b3;
+  }
+  
+  /* Grid Component */
+  .grid-component {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    margin-bottom: 10px;
+  }
+  
+  .grid-component > div {
+    border: 1px solid #ccc;
+    padding: 10px;
+    background-color: #f9f9f9;
+    text-align: center;
+  }
+  
+  /* Social Media Component */
+  .social-media-component {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 10px;
+  }
+  
+  .social-media-component a {
+    margin: 0 10px;
+    font-size: 24px;
+    color: #007bff;
+    text-decoration: none;
+  }
+  
