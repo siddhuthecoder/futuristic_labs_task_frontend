@@ -1,9 +1,12 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import Sidebar from "../components/Sidebar";
 import Canvas from "../components/Canvas";
 import styled from "styled-components";
+
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 const AppContainer = styled.div`
   display: flex;
@@ -12,6 +15,14 @@ const AppContainer = styled.div`
 
 const Home = () => {
   const [components, setComponents] = useState([]);
+  const userData = useSelector((state) => state.user.user);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!userData) {
+      navigate("/register");
+    }
+  }, [userData, navigate]);
 
   return (
     <DndProvider backend={HTML5Backend}>

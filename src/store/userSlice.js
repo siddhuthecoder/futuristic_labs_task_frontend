@@ -22,10 +22,10 @@ const userSlice = createSlice({
   name: "user",
   initialState: { user: null, status: "idle", error: null },
   reducers: {
-    setUsers: (state, action) => {
+    setUser: (state, action) => {
       state.user = action.payload;
     },
-    removeUsers: (state, actions) => {
+    removeUser: (state, actions) => {
       state.user = null;
     },
   },
@@ -47,3 +47,6 @@ const userSlice = createSlice({
     });
   },
 });
+
+export const UserActions = userSlice.actions;
+export default userSlice;

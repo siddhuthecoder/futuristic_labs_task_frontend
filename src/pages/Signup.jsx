@@ -1,14 +1,58 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { toast } from "react-hot-toast";
+import axios from "axios";
+import { useDispatch, useSelector } from "react-redux";
+import { UserActions } from "../store/userSlice";
+import { Link, useNavigate } from "react-router-dom";
 
 const Signup = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [submit, setSubmit] = useState(false);
+
+  const userData = useSelector((state) => state.user.user);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (userData) {
+      navigate("/");
+    }
+  }, [userData, navigate]);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setSubmit(true);
+    if (username === "" || password === "") {
+      toast.error("All Fields are required");
+      setSubmit(false);
+      return;
+    }
+
+    try {
+      const res = await axios.post(
+        `${process.env.REACT_APP_API_URL}/user/signup`,
+        {
+          username,
+          password,
+        }
+      );
+      localStorage.setItem("token", res.data.token);
+      dispatch(UserActions.setUser(res.data.user));
+      toast.success(res.data.message);
+      navigate("/");
+    } catch (error) {
+      toast.error(error?.response?.data.message || error.message);
+    } finally {
+      setSubmit(false);
+    }
+  };
 
   return (
     <>
       <div className="log_div">
-        <form className="form_box">
-          <h2 align="center">Sign Up</h2>
+        <form className="form_box" onSubmit={handleSubmit}>
+          <h2 align="center">Register</h2>
           <div className="form_input">
             <label htmlFor="username">Username</label>
             <input
@@ -27,9 +71,20 @@ const Signup = () => {
               onChange={(e) => setPassword(e.target.value)}
             />
           </div>
-          <p>Already have an account? Login here </p>
+          <p>
+            Already have an account?{" "}
+            <Link to="/login" style={{ color: "#3265aa" }}>
+              Login here
+            </Link>{" "}
+          </p>
           <div className="center_btn">
-            <button>Sign Up</button>
+            {!submit ? (
+              <button type="submit">Register</button>
+            ) : (
+              <button type="submit" disabled>
+                Registering...
+              </button>
+            )}
           </div>
         </form>
       </div>
