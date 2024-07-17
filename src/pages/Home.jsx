@@ -27,14 +27,14 @@ const Home = () => {
   //     navigate("/login");
   //   }
   // }, [userData, navigate]);
+  const handleToggle = (data) => {
+    setShow(!data)
+  }
 
   return (
     <DndProvider backend={HTML5Backend}>
       <AppContainer>
-        <div className="w-[250px] h-screen overflow-y-scroll">
-          <div className="w-full flex relative items-center flex-row-reverse">
-            
-          </div>
+        <div className="w-[250px] h-screen overflow-y-scroll relative flex">
           <Sidebar />
         </div>
         <Canvas components={components} setComponents={setComponents} />
