@@ -1,7 +1,7 @@
 import React from 'react';
 
 const ButtonComponent = ({ component }) => {
-  return <button style={{ ...component.style }}>{component.text || 'Button'}</button>;
+  return <button style={{ ...component.style }}>{component.text || 'Buttoon'}</button>;
 };
 
 export default ButtonComponent;
