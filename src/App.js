@@ -1,25 +1,21 @@
-import React, { useState } from 'react';
-import { DndProvider } from 'react-dnd';
-import { HTML5Backend } from 'react-dnd-html5-backend';
-import Sidebar from './components/Sidebar';
-import Canvas from './components/Canvas';
-import styled from 'styled-components';
+import React from "react";
+import Home from "./pages/Home";
+import Login from "./pages/Login";
+import Signup from "./pages/Signup";
 
-const AppContainer = styled.div`
-  display: flex;
-  height: 100vh;
-`;
+import { Routes, Route } from "react-router-dom";
+
+import "./App.css";
 
 const App = () => {
-  const [components, setComponents] = useState([]);
-
   return (
-    <DndProvider backend={HTML5Backend}>
-      <AppContainer>
-        <Sidebar />
-        <Canvas components={components} setComponents={setComponents} />
-      </AppContainer>
-    </DndProvider>
+    <>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Signup />} />
+      </Routes>
+    </>
   );
 };
 
